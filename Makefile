@@ -4,13 +4,13 @@ SRC = philo.c
 
 OBJ = $(SRC:.c=.o)
 
-TARGET = philo
+NAME = philo
 LIBFT = lib/libft.a
 
-all : $(TARGET)
+all : $(NAME)
 
-$(TARGET): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -25,7 +25,7 @@ clean:
 
 fclean: clean
 	make fclean -C lib
-	rm -f $(TARGET)
+	rm -f $(NAME)
 
 re: fclean all
 
