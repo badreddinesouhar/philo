@@ -1,6 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
-SRC = philo.c
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
+SRC = philo.c philo_utils.c philosophers.c
 
 OBJ = $(SRC:.c=.o)
 

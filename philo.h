@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:14 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/05/26 19:44:26 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/28 04:57:30 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 
 typedef struct s_data
 {
@@ -24,14 +25,32 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				eat;
+	int				is_dead;
 	int				number_of_times_each_philosopher_must_eat;
+	long			start;
+	pthread_mutex_t	mutex_print;
 }					t_data;
 
 typedef struct s_philo
 {
-	pthread_mutex_t	right_fork;
+	int				id;
+	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	pthread_t		philo;
+	long			start;
+	long			last_eat;
+	int				meals;
+	t_data			*data;
 }					t_philo;
+
+void				ft_print(t_philo *philo, char *msg);
+void				detach(t_philo *philo, int len);
+void				ft_sleep(int time);
+long				ft_time(void);
+void				cleanup(t_data *data, t_philo *philo,
+						pthread_mutex_t *mutex);
+pthread_mutex_t		*mutex_init(int len);
+void				*routine(void *ph);
 
 #endif
