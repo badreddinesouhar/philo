@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 04:53:06 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/28 04:58:45 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/28 05:04:57 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	cleanup(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 
 pthread_mutex_t	*mutex_init(int len)
 {
-	pthread_mutex_t *mutex;
-	int i;
+	pthread_mutex_t	*mutex;
+	int				i;
 
 	i = 0;
 	mutex = malloc(sizeof(pthread_mutex_t) * len);

@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 04:43:40 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/28 05:00:57 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/28 05:07:28 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ long	ft_time(void)
 
 void	ft_sleep(int time)
 {
-	long start;
+	long	i;
 
-	start = ft_time() + time;
-	while (ft_time() < start)
+	i = ft_time() + time;
+	while (ft_time() < i)
 		usleep(200);
 }
