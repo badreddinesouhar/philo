@@ -25,11 +25,11 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				eat;
 	int				is_dead;
 	int				number_of_times_each_philosopher_must_eat;
 	long			start;
 	pthread_mutex_t	mutex_print;
+	pthread_mutex_t last_eat;
 }					t_data;
 
 typedef struct s_philo
@@ -48,8 +48,8 @@ void				ft_print(t_philo *philo, char *msg);
 void				detach(t_philo *philo, int len);
 void				ft_sleep(int time);
 long				ft_time(void);
-void				cleanup(t_data *data, t_philo *philo,
-						pthread_mutex_t *mutex);
+void				cleanup(t_data *data, t_philo *philo, 
+									pthread_mutex_t *mutex);
 pthread_mutex_t		*mutex_init(int len);
 void				*routine(void *ph);
 

@@ -27,7 +27,9 @@ void	*routine(void *ph)
 		pthread_mutex_lock(philo->left_fork);
 		ft_print(philo, "has taken a fork");
 		ft_print(philo, "is eating");
+		pthread_mutex_lock(&philo->data->last_eat);
 		philo->last_eat = ft_time();
+		pthread_mutex_unlock(&philo->data->last_eat);
 		philo->meals += 1;
 		ft_sleep(philo->data->time_to_eat);
 		pthread_mutex_unlock(philo->left_fork);
