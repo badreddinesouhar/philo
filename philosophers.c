@@ -33,8 +33,8 @@ void	*routine(void *ph)
 			ft_print(philo, "is eating");
 			pthread_mutex_lock(&philo->data->last_eat);
 			pthread_mutex_lock(&philo->data->mutex_is_dead);
-				philo->last_eat = ft_time();
-				philo->meals += 1;
+			philo->last_eat = ft_time();
+			philo->meals += 1;
 			pthread_mutex_unlock(&philo->data->mutex_is_dead);
 			pthread_mutex_unlock(&philo->data->last_eat);
 			ft_sleep(philo->data->time_to_eat);
@@ -45,12 +45,10 @@ void	*routine(void *ph)
 			ft_print(philo, "is thinking");
 		}
 		else
-			break;
+			break ;
 	}
 	return (NULL);
 }
-
-
 
 void	cleanup(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 {

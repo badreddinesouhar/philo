@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:09 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/31 21:10:33 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/31 22:06:21 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	initialize_data(t_data *data, int argc, char **argv)
 	data->number_of_times_each_philosopher_must_eat = -1;
 	if (argc != 5 && argc != 6)
 		return ;
-	// data->eat = 0;
 	data->number_of_philosophers = atoi(argv[1]);
 	data->time_to_die = atoi(argv[2]);
 	data->time_to_eat = atoi(argv[3]);
@@ -48,41 +47,39 @@ void	run_philosophers(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 		philo[i].left_fork = &(mutex[(i + 1) % data->number_of_philosophers]);
 		philo[i].start = time;
 		philo[i].last_eat = time;
-
 		pthread_create(&(philo[i].philo), NULL, routine, (void *)&philo[i]);
 		i++;
 	}
-
-    while (data->is_dead)
-    {
-        i = 0;
-        while (i < data->number_of_philosophers)
-        {
+	while (data->is_dead)
+	{
+		i = 0;
+		while (i < data->number_of_philosophers)
+		{
 			pthread_mutex_lock(&data->mutex_is_dead);
-            if ((ft_time() - philo[i].last_eat) > philo[i].data->time_to_die)
-            {
-                printf("%ld %d is dead\n", ft_time() - philo[i].start,
-                        philo[i].id);
-                data->is_dead = 0;
-                detach(philo, data->number_of_philosophers);
-                break ;
-            }
-            if (data->number_of_times_each_philosopher_must_eat != -1)
-            {
-                if (philo[i].meals >= data->number_of_times_each_philosopher_must_eat)
-                {
-                    data->is_dead = 0;
-                    detach(philo, data->number_of_philosophers);
-                    break ;
-                }
-            }
+			if ((ft_time() - philo[i].last_eat) > philo[i].data->time_to_die)
+			{
+				printf("%ld %d is dead\n", ft_time() - philo[i].start,
+					philo[i].id);
+				data->is_dead = 0;
+				detach(philo, data->number_of_philosophers);
+				break ;
+			}
+			if (data->number_of_times_each_philosopher_must_eat != -1)
+			{
+				if (philo[i].meals >= data->number_of_times_each_philosopher_must_eat)
+				{
+					data->is_dead = 0;
+					detach(philo, data->number_of_philosophers);
+					break ;
+				}
+			}
 			pthread_mutex_unlock(&data->mutex_is_dead);
-        }
-    }
+		}
+	}
 	cleanup(data, philo, mutex);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data			*data;
 	t_philo			*philo;
