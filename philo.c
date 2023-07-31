@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:09 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/28 04:57:36 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:06:23 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	initialize_data(t_data *data, int argc, char **argv)
 	pthread_mutex_init(&data->mutex_print, NULL);
 	pthread_mutex_init(&data->last_eat, NULL);
 	data->is_dead = 1;
+	pthread_mutex_init(&data->mutex_is_dead, NULL);
+	pthread_mutex_init(&data->mutex_meals, NULL);
 	if (argc == 6)
 		data->number_of_times_each_philosopher_must_eat = atoi(argv[5]);
 }
@@ -50,13 +52,14 @@ void	run_philosophers(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 		pthread_create(&(philo[i].philo), NULL, routine, (void *)&philo[i]);
 		i++;
 	}
-	while (data->is_dead)
+
+    while (data->is_dead)
     {
         i = 0;
         while (i < data->number_of_philosophers)
         {
-			pthread_mutex_lock(&data->last_eat);
-            if ((ft_time() - philo[i].last_eat) >= philo[i].data->time_to_die)
+			pthread_mutex_lock(&data->mutex_is_dead);
+            if ((ft_time() - philo[i].last_eat) > philo[i].data->time_to_die)
             {
                 printf("%ld %d is dead\n", ft_time() - philo[i].start,
                         philo[i].id);
@@ -64,7 +67,6 @@ void	run_philosophers(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
                 detach(philo, data->number_of_philosophers);
                 break ;
             }
-			pthread_mutex_unlock(&data->last_eat);
             if (data->number_of_times_each_philosopher_must_eat != -1)
             {
                 if (philo[i].meals >= data->number_of_times_each_philosopher_must_eat)
@@ -74,6 +76,7 @@ void	run_philosophers(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
                     break ;
                 }
             }
+			pthread_mutex_unlock(&data->mutex_is_dead);
         }
     }
 	cleanup(data, philo, mutex);
@@ -81,15 +84,16 @@ void	run_philosophers(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 
 int main(int argc, char **argv)
 {
-		t_data			data;
+	t_data			*c;
 	t_philo			*philo;
 	pthread_mutex_t	*mutex;
 
-	initialize_data(&data, argc, argv);
-	philo = malloc(sizeof(t_philo) * data.number_of_philosophers);
+	data = malloc(sizeof(data));
+	initialize_data(data, argc, argv);
+	philo = malloc(sizeof(t_philo) * data->number_of_philosophers);
 	if (!philo)
 		return (1);
-	mutex = mutex_init(data.number_of_philosophers);
-	run_philosophers(&data, philo, mutex);
+	mutex = mutex_init(data->number_of_philosophers);
+	run_philosophers(data, philo, mutex);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:14 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/28 04:57:30 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/31 19:29:38 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	long			start;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t last_eat;
+	pthread_mutex_t mutex_is_dead;
+	pthread_mutex_t mutex_meals;
 }					t_data;
 
 typedef struct s_philo
