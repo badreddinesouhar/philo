@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:09 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/31 21:06:23 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:10:33 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	run_philosophers(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 
 int main(int argc, char **argv)
 {
-	t_data			*c;
+	t_data			*data;
 	t_philo			*philo;
 	pthread_mutex_t	*mutex;
 
