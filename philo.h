@@ -6,18 +6,19 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:14 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/01 11:04:46 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/01 16:56:38 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "lib/libft.h"
+# include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_data
 {
@@ -56,5 +57,7 @@ pthread_mutex_t		*mutex_init(int len);
 void				*routine(void *ph);
 void				check_the_dead(t_data *data, t_philo *philo);
 void				the_actual_routine(t_philo *ph);
+int					error_check(const char *str, int i, int sign, long nb);
+int					ft_atoi(const char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 04:53:06 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/01 11:05:57 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/01 17:26:32 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void	cleanup(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
 		pthread_mutex_destroy(&mutex[i]);
 		i++;
 	}
-	free(philo);
-	free(mutex);
 }
 
 pthread_mutex_t	*mutex_init(int len)

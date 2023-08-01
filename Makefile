@@ -1,30 +1,25 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
-SRC = philo.c philo_utils.c philosophers.c
+CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -g
+SRC = philo.c philo_utils.c philosophers.c ft_atoi.c
 
 OBJ = $(SRC:.c=.o)
 
 NAME = philo
-LIBFT = lib/libft.a
 
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	make -C lib
 
 clean:
-	make clean -C lib
 	rm -f $(OBJ)
 
 
 fclean: clean
-	make fclean -C lib
 	rm -f $(NAME)
 
 re: fclean all

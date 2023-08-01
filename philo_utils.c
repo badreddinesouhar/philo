@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 04:43:40 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/08/01 10:59:35 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/01 17:35:14 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_print(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(&philo->data->mutex_is_dead);
 	if (philo->data->is_dead)
-		printf("%ld %d %s\n", ft_time() - philo->data->start, philo->id, msg);
+		printf("%ld %d %s\n", ft_time() - philo->start, philo->id, msg);
 	pthread_mutex_unlock(&philo->data->mutex_is_dead);
 }
 

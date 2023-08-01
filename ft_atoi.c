@@ -6,25 +6,27 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 20:21:14 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/28 05:08:13 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/01 17:57:22 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
+
+int	ft_isdigit(int c)
+{
+	return (c >= 48 && c <= 57);
+}
 
 int	error_check(const char *str, int i, int sign, long nb)
 {
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-		{
-			ft_putstr_fd("Error\n", 2);
 			exit(1);
-		}
 		nb = (nb * 10) + (str[i] - '0');
 		nb = (nb * sign);
 		if (nb < INT_MIN || nb > INT_MAX)
-			exit(1);
+			return (-1);
 		i++;
 	}
 	return (nb);
@@ -43,11 +45,11 @@ int	ft_atoi(const char *str)
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
-		if (str[i] == '-')
-			sign = -1;
+		if (str[i] == '-' || str[i])
+			return (-1);
 		i++;
 	}
 	if (!str[i])
-		exit(1);
+		return (-1);
 	return (error_check(str, i, sign, nb));
 }
