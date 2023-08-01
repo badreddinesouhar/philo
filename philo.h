@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:13:14 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/31 19:29:38 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/01 11:04:46 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				is_dead;
-	int				number_of_times_each_philosopher_must_eat;
+	int				nums;
 	long			start;
 	pthread_mutex_t	mutex_print;
 	pthread_mutex_t	last_eat;
@@ -54,5 +54,7 @@ void				cleanup(t_data *data, t_philo *philo,
 						pthread_mutex_t *mutex);
 pthread_mutex_t		*mutex_init(int len);
 void				*routine(void *ph);
+void				check_the_dead(t_data *data, t_philo *philo);
+void				the_actual_routine(t_philo *ph);
 
 #endif

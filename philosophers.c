@@ -6,7 +6,7 @@
 /*   By: bsouhar <bsouhar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 04:53:06 by bsouhar           #+#    #+#             */
-/*   Updated: 2023/07/31 19:52:14 by bsouhar          ###   ########.fr       */
+/*   Updated: 2023/08/01 11:05:57 by bsouhar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,36 @@ void	*routine(void *ph)
 	{
 		pthread_mutex_lock(&philo->data->mutex_is_dead);
 		if (philo->data->is_dead)
-		{
-			pthread_mutex_unlock(&philo->data->mutex_is_dead);
-			pthread_mutex_lock(philo->right_fork);
-			ft_print(philo, "has taken a fork");
-			pthread_mutex_lock(philo->left_fork);
-			ft_print(philo, "has taken a fork");
-			ft_print(philo, "is eating");
-			pthread_mutex_lock(&philo->data->last_eat);
-			pthread_mutex_lock(&philo->data->mutex_is_dead);
-			philo->last_eat = ft_time();
-			philo->meals += 1;
-			pthread_mutex_unlock(&philo->data->mutex_is_dead);
-			pthread_mutex_unlock(&philo->data->last_eat);
-			ft_sleep(philo->data->time_to_eat);
-			pthread_mutex_unlock(philo->left_fork);
-			pthread_mutex_unlock(philo->right_fork);
-			ft_print(philo, "is sleeping");
-			ft_sleep(philo->data->time_to_sleep);
-			ft_print(philo, "is thinking");
-		}
+			the_actual_routine(philo);
 		else
 			break ;
 	}
 	return (NULL);
+}
+
+void	the_actual_routine(t_philo *ph)
+{
+	t_philo	*philo;
+
+	philo = ph;
+	pthread_mutex_unlock(&philo->data->mutex_is_dead);
+	pthread_mutex_lock(philo->right_fork);
+	ft_print(philo, "has taken a fork");
+	pthread_mutex_lock(philo->left_fork);
+	ft_print(philo, "has taken a fork");
+	ft_print(philo, "is eating");
+	pthread_mutex_lock(&philo->data->last_eat);
+	pthread_mutex_lock(&philo->data->mutex_is_dead);
+	philo->last_eat = ft_time();
+	philo->meals += 1;
+	pthread_mutex_unlock(&philo->data->mutex_is_dead);
+	pthread_mutex_unlock(&philo->data->last_eat);
+	ft_sleep(philo->data->time_to_eat);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	ft_print(philo, "is sleeping");
+	ft_sleep(philo->data->time_to_sleep);
+	ft_print(philo, "is thinking");
 }
 
 void	cleanup(t_data *data, t_philo *philo, pthread_mutex_t *mutex)
